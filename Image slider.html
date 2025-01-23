@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Slider</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: rgb(166, 166, 200);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        flex-direction: column;
+        color: #fff;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 3em;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        color: #fff;
+        position: absolute;
+        top: 20px;
+        z-index: 10;
+        width: 100%;
+      }
+
+      .slider {
+        position: relative;
+        width: 600px;
+        height: 400px;
+        perspective: 1000px;
+        z-index: 1;
+      }
+
+      .slides {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        transform-style: preserve-3d;
+        transition: transform 1s ease-in-out;
+      }
+
+      .slide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      }
+
+      .slide:nth-child(1) {
+        transform: rotateY(0deg) translateZ(300px);
+        background-image: url("https://images.unsplash.com/photo-1737047119483-1ddb4cb13540?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?crop=entropy&cs=tinysrgb&w=800&h=400");
+      }
+      .slide:nth-child(2) {
+        transform: rotateY(120deg) translateZ(300px);
+        background-image: url("https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&w=800&h=400");
+      }
+      .slide:nth-child(3) {
+        transform: rotateY(240deg) translateZ(300px);
+        background-image: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&w=800&h=400");
+      }
+
+      button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(243, 241, 241, 0.6);
+        border: none;
+        color: #333;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 50%;
+        z-index: 10;
+      }
+
+      button.prev {
+        left: 10px;
+      }
+
+      button.next {
+        right: 10px;
+      }
+
+      button:hover {
+        background-color: rgba(244, 239, 239, 0.9);
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Explore the World</h1>
+
+    <div class="slider">
+      <div class="slides">
+        <div class="slide">
+          <div class="caption">Machu Picchu, Peru</div>
+        </div>
+        <div class="slide">
+          <div class="caption">Sunset</div>
+        </div>
+        <div class="slide">
+          <div class="caption">Sea</div>
+        </div>
+      </div>
+      <button class="prev">❮</button>
+      <button class="next">❯</button>
+    </div>
+
+    <script>
+      const slides = document.querySelector(".slides");
+      const slideCount = document.querySelectorAll(".slide").length;
+      const prevButton = document.querySelector(".prev");
+      const nextButton = document.querySelector(".next");
+
+      let currentAngle = 0;
+      const anglePerSlide = 360 / slideCount;
+
+      function rotateCarousel(direction) {
+        if (direction === "next") {
+          currentAngle -= anglePerSlide;
+        } else {
+          currentAngle += anglePerSlide;
+        }
+        slides.style.transform = `rotateY(${currentAngle}deg)`;
+      }
+
+      prevButton.addEventListener("click", () => rotateCarousel("prev"));
+      nextButton.addEventListener("click", () => rotateCarousel("next"));
+    </script>
+  </body>
+</html>
